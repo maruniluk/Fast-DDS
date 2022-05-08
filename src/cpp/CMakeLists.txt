@@ -345,11 +345,15 @@ if(TINYXML2_SOURCE_DIR)
         )
 endif()
 
-if((ANDROID_PLATFORM VERSION_LESS_EQUAL 23) OR (ANDROID_NATIVE_API_LEVEL VERSION_LESS_EQUAL 23))
-    list(APPEND ${PROJECT_NAME}_source_files
-        ${ANDROID_IFADDRS_SOURCE_DIR}/ifaddrs.c
-        )
+if(ANDROID)
+    if((ANDROID_PLATFORM LESS_EQUAL 23) OR (ANDROID_NATIVE_API_LEVEL LESS_EQUAL 23))
+        list(APPEND ${PROJECT_NAME}_source_files
+            ${ANDROID_IFADDRS_SOURCE_DIR}/ifaddrs.c
+            )
+    endif()
 endif()
+
+
 
 # Option to enable strict real-time. In this case, several API functions have a real-time behaviour.
 # * Publisher::write() - Uses ReliabilityQosPolicy.max_blocking_time
